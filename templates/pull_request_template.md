@@ -1,5 +1,5 @@
 <!--
-Title: conventional commit, plain language. e.g. `fix(web): new threads no longer spike CPU`
+Title: conventional commit, plain language. e.g. `<fix(scope): what the user sees now>`
 One problem per PR. Cleanups, refactors and second fixes go in their own PRs.
 -->
 
@@ -20,12 +20,14 @@ How you checked it and what you saw. "Tests pass" is not evidence.
 - Performance: before/after numbers from a realistic run (setup, runs, results).
 - Logic or data bug: the test that failed before the fix and passes after.
 - Server-only change: a short runtime transcript (request → response, logs).
--->
+
+For UI changes, paste this table:
 
 | Before | After |
 | ------ | ----- |
 |        |       |
+-->
 
 ---
 
-Written with: <!-- model + harness, e.g. "Claude Opus 5.5 (high) via Claude Code" -->
+Written with: <!-- model + harness, e.g. "Claude Opus 5.5 (high) via Claude Code", or "human" -->

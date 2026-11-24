@@ -1,6 +1,9 @@
 # Slop-proof checklist
 
-Score each item ✅ present and specific, 🟡 present but generic or stale, or ❌ missing.
+Score each item ✅ present and specific, 🟡 present but generic or stale,
+❌ missing, N/A when it doesn't fit the repo (no UI, no CI, no outside
+contributors), or unverified when you couldn't check it. N/A is not a gap, and
+a ❌ is a recommendation, not something to fix without asking.
 
 ## Intent (human-owned)
 - [ ] Agent instructions say what the product is and who it's for.
@@ -25,14 +28,15 @@ Score each item ✅ present and specific, 🟡 present but generic or stale, or 
 - [ ] UI changes need before/after images, motion needs video, and performance needs numbers.
 - [ ] Evidence is uploaded to the PR, never committed.
 - [ ] One request is one PR.
-- [ ] A PR template enforces the above.
+- [ ] A PR template enforces the above (if the repo uses PRs on a forge).
 - [ ] Babysitting rules are present if CI or review bots exist (watch without polling, verify findings, dismiss with reasons, stop on green).
 
 ## Verification
-- [ ] A scoped pre-push check is named, and it says CI owns the full suite.
-- [ ] A verify skill exists that starts the real app on isolated state, seeds data, drives it and captures evidence.
+- [ ] A scoped pre-push check is named. If CI runs the full suite, it says CI owns it.
+- [ ] A verify skill exists that starts the real app on isolated state, seeds data, drives it and captures evidence. (For a library or CLI with no app, a real-outcome check in AGENTS.md is enough.)
 - [ ] Paid dependencies can be driven cheaply (a fake or replay provider, the cheapest model, a sandbox).
 - [ ] The testing policy covers what to test, proof by bug type, no sleeps or retries, and "tests pass is not evidence".
+- [ ] Verification never runs against live data, real payments or real messaging.
 - [ ] CI runs on PRs.
 
 ## Hygiene

@@ -1,7 +1,7 @@
 # The anti-slop principles, in full
 
 Source: Matt Feroz, *"I Maintain T3 Code. Please Stop Shipping AI Slop."*
-(YouTube, 2026-11-09, 20 min), and the T3 Code repo (`pingdotgg/t3code`):
+(YouTube, November 2026, 20 min), and the T3 Code repo (`pingdotgg/t3code`):
 `AGENTS.md`, `CONTRIBUTING.md`, `docs/internals/15_testing.md` and
 `.agents/skills/test-t3-app`.
 
@@ -37,7 +37,7 @@ codebase. CONTRIBUTING can name models the project won't accept.
 - That intuition comes from shipping a lot and thinking hard about what the
   software should become.
 
-**In a repo:** "One request is one PR. Split only when asked." "Fix one
+**In a repo** (abridged from T3's AGENTS.md): "One request is one PR. Split only when asked." "Fix one
 problem. Include every change that fix needs (contracts, server, clients,
 tests, docs). Cleanup, refactors and a second fix go in their own PRs."
 
@@ -74,7 +74,8 @@ a human sign-off before breaking it."*
 - Structure should come from points 2 and 3: what you want, and what your
   stakeholders need.
 - The single most valuable piece is the **pull request block** in T3's
-  AGENTS.md. He says it alone prevents "95% of your agents producing slop":
+  AGENTS.md. He says it alone prevents "95% of your agents producing slop".
+  Abridged, with the harness-specific watch tool generalized:
 
   > - Never make a PR unless the developer explicitly asks you to do so.
   > - Conventional commit titles, plain language: `fix(web): new threads no longer spike CPU`.
@@ -154,7 +155,7 @@ precise:
   tests; don't retry them.
 - Real-app "scenarios" exist that pass only if the test **fails on base and
   passes on head**, with base/head screenshots paired automatically.
-- CONTRIBUTING: *"Say how you found the bug, how you checked it, and what you
+- CONTRIBUTING (abridged): *"Say how you found the bug, how you checked it, and what you
   saw. 'Tests pass' is not evidence."*
 
 ## The verify skill pattern (from `test-t3-app`)

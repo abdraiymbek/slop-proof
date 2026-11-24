@@ -20,32 +20,41 @@ and on the real agent setup in [pingdotgg/t3code](https://github.com/pingdotgg/t
 ## What it does to a repo
 
 1. **Audit** (read-only, `scripts/audit.sh`): stack, scripts, CI, existing agent files, PR template, tests, surfaces, danger zones.
-2. **Interview** the human about product intent, non-negotiables, out-of-scope work and taste. It never invents them. Anything it can't learn becomes a `TODO(human)` marker.
-3. **Write `AGENTS.md`** (and `CLAUDE.md` → `@AGENTS.md`), merging into any existing files.
-4. **Write a `verify-app` skill** for the repo: run the real app on isolated state, seed data, drive it and capture evidence.
-5. **Add a PR template and a testing policy.**
-6. **Add a babysitting loop** for CI and review bots.
-7. **Prove the setup** and report what's left.
+2. **Interview** the human about product intent, non-negotiables, out-of-scope work, taste and testing policy. It never invents them. Anything it can't learn becomes a `TODO(human)` marker.
+3. **Write `AGENTS.md`** (and `CLAUDE.md` → `@AGENTS.md`), merging into any existing files. PR babysitting rules are included only if the repo has CI or review bots.
+4. **Write a `verify-app` skill** for the repo: run the real app on isolated state, seed data, drive it and capture evidence. A library or small CLI gets a one-line check in `AGENTS.md` instead.
+5. **Add a PR template and, with your yes, a testing policy.**
+6. **Prove the setup** and report what's left.
 
-It never commits or opens PRs unless asked. It can also just **audit** an existing setup against [`references/checklist.md`](references/checklist.md).
+It never commits or opens PRs unless asked. Ask for one piece ("just add a PR template") and it does only that. It can also just **audit** an existing setup against [`references/checklist.md`](references/checklist.md), or **explain** the ideas without touching anything.
 
 ## Install
 
-Claude Code (user-level, available in every repo):
+User-level, available in every repo:
 
 ```bash
+# Claude Code
 git clone https://github.com/abdraiymbek/slop-proof ~/.claude/skills/slop-proof
+# Codex and other harnesses that read ~/.agents/skills
+git clone https://github.com/abdraiymbek/slop-proof ~/.agents/skills/slop-proof
 ```
 
-Or per-project: clone it into `.claude/skills/slop-proof` (or `.agents/skills/slop-proof`) inside the repo.
+Per-project: copy it into `.claude/skills/slop-proof` (Claude Code) or `.agents/skills/slop-proof` (Codex and others) inside the repo. If you clone it there, delete the clone's `.git` folder (or add it as a submodule) so you don't nest one repo inside another.
 
-Then, in any repo, run `/slop-proof` or ask "make this repo agent-ready" or "audit our AGENTS.md".
+Then, in any repo, ask "make this repo agent-ready" or "audit our AGENTS.md". In Claude Code you can also run `/slop-proof`, and in Codex `$slop-proof`.
 
 The audit script works on its own too:
 
 ```bash
-bash ~/.claude/skills/slop-proof/scripts/audit.sh /path/to/repo
+bash ~/.claude/skills/slop-proof/scripts/audit.sh /path/to/repo   # or wherever you installed it
 ```
+
+### Prerequisites and safety
+
+- `bash` and `git`. `python3` or `node` lists `package.json` scripts. On Windows, use Git Bash or WSL.
+- The audit is read-only and prints only the remote's host, never its URL.
+- Setup merges into existing files instead of replacing them, asks before touching `CONTRIBUTING.md` or adopting a testing policy, and never commits.
+- To write the verify skill, it runs your dev server once. It confirms the database and external services are disposable first, and asks you if it can't tell.
 
 ## Layout
 
@@ -53,7 +62,7 @@ bash ~/.claude/skills/slop-proof/scripts/audit.sh /path/to/repo
 SKILL.md                         # the procedure the agent follows
 references/principles.md         # the concepts in depth, with T3 Code examples
 references/checklist.md          # audit scorecard
-templates/AGENTS.md              # agent instructions skeleton
+templates/AGENTS.template.md     # agent instructions skeleton (named so agents don't load it)
 templates/pull_request_template.md
 templates/verify-skill.md        # repo-specific "prove it works" skill
 templates/testing.md             # testing policy: proof by bug type
@@ -62,4 +71,4 @@ scripts/audit.sh                 # read-only repo inventory
 
 ## License
 
-MIT. The quoted excerpts from T3 Code belong to their authors and are used for commentary with attribution.
+MIT. `templates/` and the quoted passages in `references/principles.md` are adapted from [pingdotgg/t3code](https://github.com/pingdotgg/t3code) (MIT, © 2026 T3 Tools Inc.). Its notice is included in [LICENSE](LICENSE). Not affiliated with or endorsed by T3 Tools or Matt Feroz.
